@@ -17,3 +17,32 @@ export const searchMoviesFromOMDB = async (query) => {
     type: movie.Type,
   }));
 };
+
+export const getMovieDetailsFromOMDB = async (id) => {
+  const response = await axios.get(
+    `${process.env.OMDB_BASE_URL}/?apikey=${process.env.OMDB_API_KEY}&i=${id}&plot=full`
+  );
+
+  if (response.data.Response === "False") {
+    return null;
+  }
+
+  const movie = response.data;
+
+  return {
+    id: movie.imdbID,
+    title: movie.Title,
+    year: movie.Year,
+    rated: movie.Rated,
+    released: movie.Released,
+    runtime: movie.Runtime,
+    genre: movie.Genre,
+    director: movie.Director,
+    actors: movie.Actors,
+    plot: movie.Plot,
+    language: movie.Language,
+    country: movie.Country,
+    poster: movie.Poster,
+    imdbRating: movie.imdbRating,
+  };
+};

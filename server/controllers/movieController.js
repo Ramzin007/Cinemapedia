@@ -1,4 +1,7 @@
-import { searchMoviesFromOMDB } from "../services/omdbService.js";
+import {
+  searchMoviesFromOMDB,
+  getMovieDetailsFromOMDB,
+} from "../services/omdbService.js";
 
 export const searchMovies = async (req, res) => {
   try {
@@ -16,6 +19,26 @@ export const searchMovies = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error: "Failed to fetch movies",
+    });
+  }
+};
+
+export const getMovieDetails = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const data = await getMovieDetailsFromOMDB(id);
+
+    if (!data) {
+      return res.status(404).json({
+        error: "Movie not found",
+      });
+    }
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to fetch movie details",
     });
   }
 };
