@@ -5,5 +5,15 @@ export const searchMoviesFromOMDB = async (query) => {
     `${process.env.OMDB_BASE_URL}/?apikey=${process.env.OMDB_API_KEY}&s=${query}`
   );
 
-  return response.data;
+  if (response.data.Response === "False") {
+    return [];
+  }
+
+  return response.data.Search.map((movie) => ({
+    id: movie.imdbID,
+    title: movie.Title,
+    year: movie.Year,
+    poster: movie.Poster,
+    type: movie.Type,
+  }));
 };
