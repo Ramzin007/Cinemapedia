@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { searchMovies } from "../services/movieApi";
+import MovieCard from "../components/MovieCard";
 
 function Home() {
   const [query, setQuery] = useState("");
@@ -27,6 +28,13 @@ function Home() {
     <div>
       <h1>Cinemapedia</h1>
 
+      <input
+        type="text"
+        placeholder="Search for movies..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
       <button onClick={handleSearch}>Search</button>
 
       {loading && <p>Loading...</p>}
@@ -34,11 +42,8 @@ function Home() {
       {error && <p>{error}</p>}
 
       {movies.map((movie) => (
-        <div key={movie.id}>
-          <h2>{movie.title}</h2>
-          <p>{movie.year}</p>
-        </div>
-      ))}
+  <MovieCard key={movie.id} movie={movie} />
+))}
     </div>
   );
 }
