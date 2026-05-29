@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { searchMovies } from "../services/movieApi";
 import MovieCard from "../components/MovieCard";
+import SearchBar from "../components/SearchBar";
 
 function Home() {
   const [query, setQuery] = useState("");
@@ -26,24 +27,17 @@ function Home() {
 
   return (
     <div>
-      <h1>Cinemapedia</h1>
+        <h1>Cinemapedia</h1>
 
-      <input
-        type="text"
-        placeholder="Search for movies..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+        <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
 
-      <button onClick={handleSearch}>Search</button>
+        {loading && <p>Loading...</p>}
 
-      {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
 
-      {error && <p>{error}</p>}
-
-      {movies.map((movie) => (
-  <MovieCard key={movie.id} movie={movie} />
-))}
+        {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+        ))}
     </div>
   );
 }
