@@ -17,9 +17,9 @@ function Home() {
       const results = await searchMovies(query);
 
       setMovies(results);
-    } catch (err) {
-      setError("Failed to fetch movies");
-      setMovies([]);
+    } catch (error) {
+        console.error(error);
+        setError("Failed to fetch movies");
     } finally {
       setLoading(false);
     }
