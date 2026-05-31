@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieDetails } from "../services/movieApi.js";
+import { getMovieDetails, saveMovieToLibrary } from "../services/movieApi.js";
 
 function MovieDetails() {
   const { id } = useParams();
@@ -8,6 +8,7 @@ function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -29,6 +30,29 @@ function MovieDetails() {
     fetchMovieDetails();
   }, [id]);
 
+  const handleSaveMovie = async () => {
+  try {
+    setSaveMessage("");
+
+    await saveMovieToLibrary({
+      movieId: movie.id,
+      title: movie.title,
+      year: movie.year,
+      poster: movie.poster,
+    });
+
+    setSaveMessage("Movie saved to watchlist");
+  } catch (error) {
+    console.error(error);
+
+    if (error.response?.status === 409) {
+      setSaveMessage("Movie already exists in library");
+    } else {
+      setSaveMessage("Failed to save movie");
+    }
+  }
+};
+
   if (loading) return <p>Loading movie details...</p>;
 
   if (error) return <p>{error}</p>;
@@ -44,6 +68,10 @@ function MovieDetails() {
       <p>{movie.plot}</p>
 
       <p>IMDb Rating: {movie.imdbRating}</p>
+
+      <button onClick={handleSaveMovie}>Save to Watchlist</button>
+
+      {saveMessage && <p>{saveMessage}</p>}
     </div>
   );
 }
