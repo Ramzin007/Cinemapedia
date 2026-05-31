@@ -70,3 +70,42 @@ export const deleteSavedMovie = async (req, res) => {
     });
   }
 };
+
+export const updateSavedMovie = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const allowedUpdates = [
+      "isWatchlisted",
+      "isWatched",
+      "isFavorite",
+      "personalRating",
+    ];
+
+    const updates = {};
+
+    allowedUpdates.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    });
+
+    const updatedMovie = await SavedMovie.findByIdAndUpdate(id, updates, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedMovie) {
+      return res.status(404).json({
+        error: "Saved movie not found",
+      });
+    }
+
+    res.json(updatedMovie);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Failed to update saved movie",
+    });
+  }
+};

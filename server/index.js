@@ -1,19 +1,20 @@
-import express from 'express';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import movieRoutes from "./routes/movieRoutes.js";
-import dotenv from 'dotenv';
 import libraryRoutes from "./routes/libraryRoutes.js";
 
-const PORT = process.env.PORT || 5000;
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use("/api/library", libraryRoutes);
 dotenv.config();
 connectDB();
 
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
 app.use("/api/movies", movieRoutes);
+app.use("/api/library", libraryRoutes);
 
 // Test Routes
 app.get('/api/test', (req, res) => {
@@ -29,6 +30,6 @@ app.get('/api/hello/:name', (req, res) => {
   res.json({ message: `Hello, ${name}!` });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is running on port ${process.env.PORT || 5000}`);
 });
