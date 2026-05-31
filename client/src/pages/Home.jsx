@@ -2,6 +2,7 @@ import { useState } from "react";
 import { searchMovies } from "../services/movieApi";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
+import Hero from "../components/Hero";
 
 function Home() {
   const [query, setQuery] = useState("");
@@ -27,17 +28,19 @@ function Home() {
 
   return (
     <div>
-        <h1>Cinemapedia</h1>
 
-        <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
+      < Hero />
+      <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
 
         {loading && <p>Loading...</p>}
 
         {error && <p>{error}</p>}
 
-        {movies.map((movie) => (
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+          {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
-        ))}
+          ))}
+        </div>
     </div>
   );
 }
