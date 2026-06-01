@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import movieRoutes from "./routes/movieRoutes.js";
 import libraryRoutes from "./routes/libraryRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/api/movies", movieRoutes);
 app.use("/api/library", libraryRoutes);
+app.use("/api/auth", authRoutes);
 
 // Test Routes
 app.get('/api/test', (req, res) => {

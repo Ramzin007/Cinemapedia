@@ -10,7 +10,10 @@ export const saveMovie = async (req, res) => {
       });
     }
 
-    const existingMovie = await SavedMovie.findOne({ movieId });
+    const existingMovie = await SavedMovie.findOne({
+      userId: req.user._id,
+      movieId,
+    });
 
     if (existingMovie) {
       return res.status(409).json({
@@ -19,6 +22,7 @@ export const saveMovie = async (req, res) => {
     }
 
     const savedMovie = await SavedMovie.create({
+      userId: req.user._id,
       movieId,
       title,
       year,
@@ -37,7 +41,7 @@ export const saveMovie = async (req, res) => {
 
 export const getSavedMovies = async (req, res) => {
   try {
-    const movies = await SavedMovie.find().sort({ createdAt: -1 });
+    const movies = await SavedMovie.find({ userId: req.user._id }).sort({ createdAt: -1 });
 
     res.json(movies);
   } catch (error) {
@@ -52,7 +56,10 @@ export const deleteSavedMovie = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deletedMovie = await SavedMovie.findByIdAndDelete(id);
+    const deletedMovie = await SavedMovie.findOneAndDelete({
+      _id: id,
+      userId: req.user._id,
+    });
 
     if (!deletedMovie) {
       return res.status(404).json({
@@ -90,10 +97,17 @@ export const updateSavedMovie = async (req, res) => {
       }
     });
 
-    const updatedMovie = await SavedMovie.findByIdAndUpdate(id, updates, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedMovie = await SavedMovie.findOneAndUpdate(
+      {
+        _id: id,
+        userId: req.user._id,
+      },
+      updates,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     if (!updatedMovie) {
       return res.status(404).json({

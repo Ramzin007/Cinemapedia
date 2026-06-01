@@ -5,12 +5,13 @@ import {
   deleteSavedMovie,
   updateSavedMovie,
 } from "../controllers/libraryController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", saveMovie);
-router.get("/", getSavedMovies);
-router.delete("/:id", deleteSavedMovie);
-router.patch("/:id", updateSavedMovie);
+router.post("/", protect, saveMovie);
+router.get("/", protect, getSavedMovies);
+router.delete("/:id", protect, deleteSavedMovie);
+router.patch("/:id", protect, updateSavedMovie);
 
 export default router;
