@@ -60,20 +60,114 @@ function MovieDetails() {
   if (!movie) return <p>Movie not found</p>;
 
   return (
-    <div>
-      <h1>{movie.title}</h1>
+  <div className="mx-auto max-w-6xl px-4 py-8">
+    <div className="grid gap-8 md:grid-cols-3">
 
-      <img src={movie.poster} alt={movie.title} width="200" />
+      <div>
+        <img
+          src={movie.poster}
+          alt={movie.title}
+          className="w-full rounded-xl shadow-lg"
+        />
 
-      <p>{movie.plot}</p>
+        <button
+          onClick={handleSaveMovie}
+          className="mt-4 w-full rounded-lg bg-red-600 px-4 py-3 font-semibold hover:bg-red-700"
+        >
+          Save to Library
+        </button>
 
-      <p>IMDb Rating: {movie.imdbRating}</p>
+        {saveMessage && (
+          <p className="mt-2 text-center text-green-400">
+            {saveMessage}
+          </p>
+        )}
+      </div>
 
-      <button onClick={handleSaveMovie}>Save to Watchlist</button>
+      <div className="md:col-span-2">
 
-      {saveMessage && <p>{saveMessage}</p>}
+        <h1 className="mb-4 text-4xl font-bold">
+          {movie.title}
+        </h1>
+
+        <div className="mb-6 flex flex-wrap gap-3">
+          <span className="rounded bg-yellow-500 px-3 py-1 font-semibold text-black">
+            ⭐ {movie.imdbRating}
+          </span>
+
+          <span className="rounded bg-zinc-800 px-3 py-1">
+            {movie.year}
+          </span>
+
+          <span className="rounded bg-zinc-800 px-3 py-1">
+            {movie.runtime}
+          </span>
+        </div>
+
+        <div className="mb-6">
+          <h2 className="mb-2 text-xl font-semibold">
+            Plot
+          </h2>
+
+          <p className="text-gray-300">
+            {movie.plot}
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+
+          <div>
+            <p>
+              <span className="font-semibold">
+                Genre:
+              </span>{" "}
+              {movie.genre}
+            </p>
+
+            <p>
+              <span className="font-semibold">
+                Director:
+              </span>{" "}
+              {movie.director}
+            </p>
+
+            <p>
+              <span className="font-semibold">
+                Released:
+              </span>{" "}
+              {movie.released}
+            </p>
+          </div>
+
+          <div>
+            <p>
+              <span className="font-semibold">
+                Language:
+              </span>{" "}
+              {movie.language}
+            </p>
+
+            <p>
+              <span className="font-semibold">
+                Country:
+              </span>{" "}
+              {movie.country}
+            </p>
+
+            <p>
+              <span className="font-semibold">
+                Actors:
+              </span>{" "}
+              {movie.actors}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default MovieDetails;

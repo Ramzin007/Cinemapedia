@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 import Library from "./pages/Library.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/library" element={<Library />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
