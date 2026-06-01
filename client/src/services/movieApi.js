@@ -2,24 +2,65 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:5000/api/movies";
 const LIBRARY_API_URL = "http://localhost:5000/api/library";
+const AUTH_API_URL = "http://localhost:5000/api/auth";
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
+
+export const registerUser = async (userData) => {
+  const response = await axios.post(`${AUTH_API_URL}/register`, userData);
+  return response.data;
+};
+
+export const loginUser = async (credentials) => {
+  const response = await axios.post(`${AUTH_API_URL}/login`, credentials);
+  return response.data;
+};
 
 export const saveMovieToLibrary = async (movie) => {
-  const response = await axios.post(LIBRARY_API_URL, movie);
+  const response = await axios.post(
+  LIBRARY_API_URL,
+  movie,
+  getAuthHeaders()
+);
   return response.data;
 };
 
 export const getSavedMovies = async () => {
-  const response = await axios.get(LIBRARY_API_URL);
+  const response = await axios.get(
+    LIBRARY_API_URL,
+    getAuthHeaders()
+  );
+
   return response.data;
 };
 
 export const deleteSavedMovie = async (id) => {
-  const response = await axios.delete(`${LIBRARY_API_URL}/${id}`);
+  const response = await axios.delete(
+    `${LIBRARY_API_URL}/${id}`,
+    getAuthHeaders()
+  );
+
   return response.data;
 };
 
-export const updateSavedMovie = async (id, updates) => {
-  const response = await axios.patch(`${LIBRARY_API_URL}/${id}`, updates);
+export const updateSavedMovie = async (
+  id,
+  updates
+) => {
+  const response = await axios.patch(
+    `${LIBRARY_API_URL}/${id}`,
+    updates,
+    getAuthHeaders()
+  );
+
   return response.data;
 };
 
