@@ -1,8 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api/movies";
-const LIBRARY_API_URL = "http://localhost:5000/api/library";
-const AUTH_API_URL = "http://localhost:5000/api/auth";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const API_BASE_URL = `${BASE_URL}/api/movies`;
+const LIBRARY_API_URL = `${BASE_URL}/api/library`;
+const AUTH_API_URL = `${BASE_URL}/api/auth`;
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
