@@ -1,4 +1,17 @@
+import { useState } from "react";
+
 function SearchBar({ query, setQuery, onSearch }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      await onSearch();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <input
@@ -8,7 +21,9 @@ function SearchBar({ query, setQuery, onSearch }) {
         placeholder="Search movies..."
       />
 
-      <button onClick={onSearch}>Search</button>
+      <button onClick={handleSearch} disabled={loading}>
+        {loading ? "Searching..." : "Search"}
+      </button>
     </div>
   );
 }

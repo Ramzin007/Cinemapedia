@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails, saveMovieToLibrary } from "../services/movieApi.js";
+import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 
 function MovieDetails() {
   const { id } = useParams();
@@ -8,7 +10,6 @@ function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -31,29 +32,27 @@ function MovieDetails() {
   }, [id]);
 
   const handleSaveMovie = async () => {
-  try {
-    setSaveMessage("");
+    try {
+      await saveMovieToLibrary({
+        movieId: movie.id,
+        title: movie.title,
+        year: movie.year,
+        poster: movie.poster,
+      });
 
-    await saveMovieToLibrary({
-      movieId: movie.id,
-      title: movie.title,
-      year: movie.year,
-      poster: movie.poster,
-    });
+      toast.success("Movie saved");
+    } catch (error) {
+      console.error(error);
 
-    setSaveMessage("Movie saved to watchlist");
-  } catch (error) {
-    console.error(error);
-
-    if (error.response?.status === 409) {
-      setSaveMessage("Movie already exists in library");
-    } else {
-      setSaveMessage("Failed to save movie");
+      if (error.response?.status === 409) {
+        toast.error("Movie already exists in library");
+      } else {
+        toast.error("Failed to save movie");
+      }
     }
-  }
-};
+  };
 
-  if (loading) return <p>Loading movie details...</p>;
+  if (loading) return <Spinner />;
 
   if (error) return <p>{error}</p>;
 
@@ -76,12 +75,6 @@ function MovieDetails() {
         >
           Save to Library
         </button>
-
-        {saveMessage && (
-          <p className="mt-2 text-center text-green-400">
-            {saveMessage}
-          </p>
-        )}
       </div>
 
       <div className="md:col-span-2">

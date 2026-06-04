@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../services/movieApi.js";
+import toast from "react-hot-toast";
 
 function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,17 +27,20 @@ function Register() {
 
     try {
       setError("");
-
+      
+      setLoading(true);
       await registerUser(formData);
 
       navigate("/login");
     } catch (error) {
       console.error(error);
-
+      setLoading(false);
       if (error.response?.status === 409) {
         setError("User already exists");
+        toast.error("User already exists");
       } else {
         setError("Failed to register");
+        toast.error("Failed to register");
       }
     }
   };
@@ -78,8 +83,11 @@ function Register() {
           className="w-full rounded bg-zinc-900 px-4 py-3 text-white outline-none focus:ring-2 focus:ring-red-600"
         />
 
-        <button className="w-full rounded bg-red-600 px-4 py-3 font-semibold hover:bg-red-700">
-          Register
+        <button
+          disabled={loading}
+          className="w-full rounded bg-red-600 px-4 py-3 font-semibold hover:bg-red-700 disabled:bg-red-900"
+        >
+          {loading ? "Registering..." : "Register"}
         </button>
       </form>
 

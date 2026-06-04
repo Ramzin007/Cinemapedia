@@ -4,14 +4,21 @@ import {
   deleteSavedMovie,
   updateSavedMovie,
 } from "../services/movieApi.js";
-
+import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 import LibraryMovieCard from "../components/LibraryMovieCard.jsx";
+import EmptyState from "../components/EmptyState";  
 
 function Library() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
+
+  <EmptyState
+  emoji="🎬"
+  title="No movies found"
+  description="Start building your collection by searching and adding movies."
+/>
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -20,7 +27,7 @@ function Library() {
         setMovies(data);
       } catch (error) {
         console.error(error);
-        setError("Failed to load library");
+        toast.error("Failed to load library");
       } finally {
         setLoading(false);
       }
@@ -38,7 +45,7 @@ function Library() {
       );
     } catch (error) {
       console.error(error);
-      setError("Failed to delete movie");
+      toast.error("Failed to delete movie");
     }
   };
 
@@ -55,6 +62,7 @@ function Library() {
       );
     } catch (error) {
       console.error(error);
+      toast.error("Failed to update movie");
     }
   };
 
@@ -71,6 +79,7 @@ function Library() {
       );
     } catch (error) {
       console.error(error);
+      toast.error("Failed to update movie");
     }
   };
 
@@ -87,6 +96,7 @@ function Library() {
       );
     } catch (error) {
       console.error(error);
+      toast.error("Failed to update movie");
     }
   };
 
@@ -119,12 +129,8 @@ function Library() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="p-8 text-center text-red-500">
-        {error}
-      </div>
-    );
+  if (loading) {
+    return <Spinner />;
   }
 
   const filters = [
@@ -194,13 +200,16 @@ function Library() {
 </div>
 
       {filteredMovies.length === 0 ? (
-        <div className="rounded-xl bg-zinc-900 p-8 text-center">
-          <h2 className="text-2xl font-semibold">
-            No movies saved yet
+        <div className="flex flex-col items-center justify-center rounded-xl bg-zinc-900 p-12">
+          <div className="text-7xl">🎬</div>
+
+          <h2 className="mt-4 text-2xl font-bold">
+            No movies found
           </h2>
 
-          <p className="mt-2 text-gray-400">
-            Search for movies and add them to your library.
+          <p className="mt-2 text-center text-gray-400">
+            Start building your collection by searching
+            and adding movies to your library.
           </p>
         </div>
       ) : (

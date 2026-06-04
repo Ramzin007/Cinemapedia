@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../services/movieApi.js";
+import toast from "react-hot-toast";
 
 function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -25,6 +27,7 @@ function Login() {
     try {
       setError("");
 
+      setLoading(true);
       const data = await loginUser(formData);
 
       localStorage.setItem("token", data.token);
@@ -32,8 +35,10 @@ function Login() {
 
       navigate("/library");
     } catch (error) {
+      setLoading(false);
       console.error(error);
-      setError("Invalid email or password");
+      setError("Invalid login");
+      toast.error("Invalid login");
     }
   };
 
@@ -66,8 +71,11 @@ function Login() {
           className="w-full rounded bg-zinc-900 px-4 py-3 text-white outline-none focus:ring-2 focus:ring-red-600"
         />
 
-        <button className="w-full rounded bg-red-600 px-4 py-3 font-semibold hover:bg-red-700">
-          Login
+        <button
+          disabled={loading}
+          className="w-full rounded bg-red-600 px-4 py-3 font-semibold hover:bg-red-700 disabled:bg-red-900"
+        >
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
 
