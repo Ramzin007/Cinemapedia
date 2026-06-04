@@ -13,6 +13,13 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  <SearchBar
+    query={query}
+    setQuery={setQuery}
+    onSearch={handleSearch}
+    loading={loading}
+  />
+
   const handleSearch = async () => {
     try {
       setLoading(true);

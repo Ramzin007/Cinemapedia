@@ -33,7 +33,7 @@ function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/library");
+      navigate("/");
     } catch (error) {
       setLoading(false);
       console.error(error);
