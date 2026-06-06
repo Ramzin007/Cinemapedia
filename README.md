@@ -137,27 +137,27 @@ VITE_API_BASE_URL=YOUR_BACKEND_URL
 
 ---
 
-## Screenshots
+# 📸 Screenshots
 
-### Home
+## 🏠 Home Page
 
-![Cinemapedia home page](screenshots/home.png)
+![Home](./screenshots/home.png)
 
-### Movie Details
+## 🎬 Movie Details
 
-![Cinemapedia movie details page](screenshots/movie-details.png)
+![Movie Details](./screenshots/movie-details.png)
 
-### Library
+## 📚 Library
 
-![Cinemapedia library page](screenshots/library.png)
+![Library](./screenshots/library.png)
 
-### Login
+## 🔐 Login
 
-![Cinemapedia login page](screenshots/login.png)
+![Login](./screenshots/login.png)
 
-### Register
+## 📝 Register
 
-![Cinemapedia register page](screenshots/register.png)
+![Register](./screenshots/register.png)
 
 ---
 
