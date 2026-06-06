@@ -56,9 +56,15 @@ function LibraryMovieCard({
               : "border-white/10 bg-black/40 text-zinc-300 hover:border-amber-400/30 hover:bg-amber-400/5"
           }`}
         >
-          <option value="">Rate movie</option>
+          <option value="" className="bg-zinc-950 text-zinc-200">
+            Rate movie
+          </option>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((rating) => (
-            <option key={rating} value={rating}>
+            <option
+              key={rating}
+              value={rating}
+              className="bg-zinc-950 text-white"
+            >
               {rating}/10
             </option>
           ))}
