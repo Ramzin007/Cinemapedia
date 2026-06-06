@@ -137,13 +137,27 @@ VITE_API_BASE_URL=YOUR_BACKEND_URL
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-* Home Page
-* Movie Details
-* Library
-* Login
-* Register
+### Home
+
+![Cinemapedia home page](screenshots/home.png)
+
+### Movie Details
+
+![Cinemapedia movie details page](screenshots/movie-details.png)
+
+### Library
+
+![Cinemapedia library page](screenshots/library.png)
+
+### Login
+
+![Cinemapedia login page](screenshots/login.png)
+
+### Register
+
+![Cinemapedia register page](screenshots/register.png)
 
 ---
 
