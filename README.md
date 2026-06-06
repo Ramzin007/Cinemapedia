@@ -143,14 +143,6 @@ VITE_API_BASE_URL=YOUR_BACKEND_URL
 
 ![Home](./screenshots/home.png)
 
-## 🎬 Movie Details
-
-![Movie Details](./screenshots/movie-details.png)
-
-## 📚 Library
-
-![Library](./screenshots/library.png)
-
 ## 🔐 Login
 
 ![Login](./screenshots/login.png)
