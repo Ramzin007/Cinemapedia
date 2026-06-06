@@ -32,7 +32,10 @@ function LibraryMovieCard({
                 : "bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white"
             }`}
           >
-            {movie.isFavorite ? "Favorite" : "Add Favorite"}
+            <span aria-hidden="true">
+              {movie.isFavorite ? "♥" : "♡"}
+            </span>{" "}
+            {movie.isFavorite ? "Favorite" : "Favorite"}
           </button>
 
           <button
