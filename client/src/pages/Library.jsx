@@ -18,9 +18,10 @@ function Library() {
     const fetchMovies = async () => {
       try {
         const data = await getSavedMovies();
-        setMovies(data);
+        setMovies(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error(error);
+        setMovies([]);
         toast.error("Failed to load library");
       } finally {
         setLoading(false);
