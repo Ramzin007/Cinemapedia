@@ -50,7 +50,11 @@ function LibraryMovieCard({
         <select
           value={movie.personalRating || ""}
           onChange={(e) => onRatingChange(movie, e.target.value)}
-          className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
+          className={`w-full cursor-pointer rounded-xl border px-3 py-2.5 text-sm font-semibold outline-none transition duration-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30 ${
+            movie.personalRating
+              ? "border-amber-400/40 bg-amber-400/10 text-amber-200"
+              : "border-white/10 bg-black/40 text-zinc-300 hover:border-amber-400/30 hover:bg-amber-400/5"
+          }`}
         >
           <option value="">Rate movie</option>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((rating) => (
