@@ -54,113 +54,120 @@ function MovieDetails() {
 
   if (loading) return <Spinner />;
 
-  if (error) return <p>{error}</p>;
+  if (error) {
+    return (
+      <p className="mx-auto max-w-6xl px-4 py-12 text-red-200">
+        {error}
+      </p>
+    );
+  }
 
-  if (!movie) return <p>Movie not found</p>;
+  if (!movie) {
+    return (
+      <p className="mx-auto max-w-6xl px-4 py-12 text-zinc-300">
+        Movie not found
+      </p>
+    );
+  }
 
   return (
-  <div className="mx-auto max-w-6xl px-4 py-8">
-    <div className="grid gap-8 md:grid-cols-3">
+    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+      <div className="grid gap-8 lg:grid-cols-[minmax(240px,360px)_1fr] lg:gap-12">
+        <div>
+          <img
+            src={movie.poster}
+            alt={movie.title}
+            className="aspect-[2/3] w-full rounded-2xl border border-white/10 object-cover shadow-2xl shadow-black/60"
+          />
 
-      <div>
-        <img
-          src={movie.poster}
-          alt={movie.title}
-          className="w-full rounded-xl shadow-lg"
-        />
-
-        <button
-          onClick={handleSaveMovie}
-          className="mt-4 w-full rounded-lg bg-red-600 px-4 py-3 font-semibold hover:bg-red-700"
-        >
-          Save to Library
-        </button>
-      </div>
-
-      <div className="md:col-span-2">
-
-        <h1 className="mb-4 text-4xl font-bold">
-          {movie.title}
-        </h1>
-
-        <div className="mb-6 flex flex-wrap gap-3">
-          <span className="rounded bg-yellow-500 px-3 py-1 font-semibold text-black">
-            ⭐ {movie.imdbRating}
-          </span>
-
-          <span className="rounded bg-zinc-800 px-3 py-1">
-            {movie.year}
-          </span>
-
-          <span className="rounded bg-zinc-800 px-3 py-1">
-            {movie.runtime}
-          </span>
+          <button
+            onClick={handleSaveMovie}
+            className="mt-5 w-full rounded-xl bg-red-600 px-5 py-4 font-bold text-white shadow-lg shadow-red-950/40 transition duration-200 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-black"
+          >
+            Save to Library
+          </button>
         </div>
 
-        <div className="mb-6">
-          <h2 className="mb-2 text-xl font-semibold">
-            Plot
-          </h2>
+        <div className="flex flex-col justify-center">
+          <h1 className="mb-5 text-4xl font-black leading-tight sm:text-5xl">
+            {movie.title}
+          </h1>
 
-          <p className="text-gray-300">
-            {movie.plot}
-          </p>
-        </div>
+          <div className="mb-8 flex flex-wrap gap-3">
+            <span className="rounded-full bg-yellow-400 px-4 py-2 text-sm font-bold text-black shadow-lg shadow-yellow-950/30">
+              IMDb {movie.imdbRating}
+            </span>
 
-        <div className="grid gap-4 md:grid-cols-2">
+            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-200">
+              {movie.year}
+            </span>
 
-          <div>
-            <p>
-              <span className="font-semibold">
-                Genre:
-              </span>{" "}
-              {movie.genre}
-            </p>
+            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-200">
+              {movie.runtime}
+            </span>
+          </div>
 
-            <p>
-              <span className="font-semibold">
-                Director:
-              </span>{" "}
-              {movie.director}
-            </p>
+          <div className="mb-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+            <h2 className="mb-3 text-xl font-bold">
+              Plot
+            </h2>
 
-            <p>
-              <span className="font-semibold">
-                Released:
-              </span>{" "}
-              {movie.released}
+            <p className="leading-8 text-zinc-300">
+              {movie.plot}
             </p>
           </div>
 
-          <div>
-            <p>
-              <span className="font-semibold">
-                Language:
-              </span>{" "}
-              {movie.language}
-            </p>
+          <div className="grid gap-4 text-sm leading-7 text-zinc-300 md:grid-cols-2">
+            <div className="space-y-2 rounded-2xl border border-white/10 bg-zinc-950/70 p-5">
+              <p>
+                <span className="font-bold text-white">
+                  Genre:
+                </span>{" "}
+                {movie.genre}
+              </p>
 
-            <p>
-              <span className="font-semibold">
-                Country:
-              </span>{" "}
-              {movie.country}
-            </p>
+              <p>
+                <span className="font-bold text-white">
+                  Director:
+                </span>{" "}
+                {movie.director}
+              </p>
 
-            <p>
-              <span className="font-semibold">
-                Actors:
-              </span>{" "}
-              {movie.actors}
-            </p>
+              <p>
+                <span className="font-bold text-white">
+                  Released:
+                </span>{" "}
+                {movie.released}
+              </p>
+            </div>
+
+            <div className="space-y-2 rounded-2xl border border-white/10 bg-zinc-950/70 p-5">
+              <p>
+                <span className="font-bold text-white">
+                  Language:
+                </span>{" "}
+                {movie.language}
+              </p>
+
+              <p>
+                <span className="font-bold text-white">
+                  Country:
+                </span>{" "}
+                {movie.country}
+              </p>
+
+              <p>
+                <span className="font-bold text-white">
+                  Actors:
+                </span>{" "}
+                {movie.actors}
+              </p>
+            </div>
           </div>
-
         </div>
-
       </div>
-    </div>
-  </div>
-);
+    </main>
+  );
 }
 
 export default MovieDetails;

@@ -13,13 +13,6 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  <SearchBar
-    query={query}
-    setQuery={setQuery}
-    onSearch={handleSearch}
-    loading={loading}
-  />
-
   const handleSearch = async () => {
     try {
       setLoading(true);
@@ -29,43 +22,47 @@ function Home() {
 
       setMovies(results);
     } catch (error) {
-        console.error(error);
-        toast.error("Failed to fetch movies");
+      console.error(error);
+      toast.error("Failed to fetch movies");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-
-      < Hero />
-      <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
+    <main className="mx-auto max-w-6xl px-4 sm:px-6">
+      <Hero />
+      <SearchBar
+        query={query}
+        setQuery={setQuery}
+        onSearch={handleSearch}
+        loading={loading}
+      />
 
       {loading && <Spinner />}
 
       {error && (
-        <p className="mb-6 rounded bg-red-900 p-3 text-red-200">
+        <p className="mx-auto mb-8 max-w-3xl rounded-xl border border-red-500/30 bg-red-950/70 p-4 text-red-100">
           {error}
         </p>
       )}
 
       {movies.length === 0 && !loading ? (
-        <div className="mt-10 grid place-items-center px-4">
+        <div className="mt-10 grid place-items-center">
           <EmptyState
-            emoji="🔍"
+            emoji="Search"
             title="No results found"
             description="Try searching for another movie."
           />
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 py-8">
+        <div className="grid gap-5 py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {movies.map((movie) => (
             <MovieCard key={movie.id || movie.movieId} movie={movie} />
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 }
 

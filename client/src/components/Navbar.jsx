@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -12,44 +12,54 @@ function Navbar() {
     navigate("/login");
   };
 
+  const linkClassName = ({ isActive }) =>
+    `rounded-full px-3 py-2 transition duration-200 ${
+      isActive
+        ? "bg-white/10 text-white shadow-sm shadow-red-950/30"
+        : "text-zinc-400 hover:bg-white/5 hover:text-white"
+    }`;
+
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link to="/" className="text-2xl font-bold text-red-600">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/75 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:flex-nowrap sm:px-6">
+        <Link
+          to="/"
+          className="text-xl font-black tracking-wide text-red-500 transition hover:text-red-400 sm:text-2xl"
+        >
           Cinemapedia
         </Link>
 
-        <div className="flex items-center gap-6 text-sm font-medium text-gray-300">
-          <Link to="/" className="hover:text-white">
+        <div className="flex w-full items-center justify-between gap-1 text-sm font-semibold sm:w-auto sm:justify-end sm:gap-2">
+          <NavLink to="/" className={linkClassName}>
             Home
-          </Link>
+          </NavLink>
 
           {token ? (
             <>
-              <Link to="/library" className="hover:text-white">
+              <NavLink to="/library" className={linkClassName}>
                 My Library
-              </Link>
+              </NavLink>
 
-              <span className="hidden text-gray-500 md:inline">
+              <span className="hidden max-w-36 truncate rounded-full border border-white/10 px-3 py-2 text-zinc-400 md:inline">
                 {user?.name}
               </span>
 
               <button
                 onClick={handleLogout}
-                className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"
+                className="rounded-full bg-red-600 px-4 py-2 text-white shadow-lg shadow-red-950/40 transition duration-200 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-black"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="hover:text-white">
+              <NavLink to="/login" className={linkClassName}>
                 Login
-              </Link>
+              </NavLink>
 
-              <Link to="/register" className="hover:text-white">
+              <NavLink to="/register" className={linkClassName}>
                 Register
-              </Link>
+              </NavLink>
             </>
           )}
         </div>

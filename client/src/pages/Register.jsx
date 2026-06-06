@@ -46,23 +46,25 @@ function Register() {
   };
 
   return (
-    <div className="mx-auto max-w-md px-4 py-12">
-      <h1 className="mb-6 text-4xl font-bold">Register</h1>
+    <main className="mx-auto flex min-h-[calc(100vh-180px)] max-w-6xl items-center px-4 py-12 sm:px-6">
+      <div className="mx-auto w-full max-w-md rounded-2xl border border-white/10 bg-zinc-950/80 p-6 shadow-2xl shadow-black/40 sm:p-8">
+      <h1 className="mb-2 text-4xl font-black">Register</h1>
+      <p className="mb-6 text-sm text-zinc-400">Start building a watchlist worth revisiting.</p>
 
       {error && (
-        <p className="mb-4 rounded bg-red-900 p-3 text-red-200">
+        <p className="mb-5 rounded-xl border border-red-500/30 bg-red-950/70 p-3 text-red-100">
           {error}
         </p>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <input
           type="text"
           name="name"
           placeholder="Name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full rounded bg-zinc-900 px-4 py-3 text-white outline-none focus:ring-2 focus:ring-red-600"
+          className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
         />
 
         <input
@@ -71,7 +73,7 @@ function Register() {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full rounded bg-zinc-900 px-4 py-3 text-white outline-none focus:ring-2 focus:ring-red-600"
+          className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
         />
 
         <input
@@ -80,24 +82,25 @@ function Register() {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full rounded bg-zinc-900 px-4 py-3 text-white outline-none focus:ring-2 focus:ring-red-600"
+          className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
         />
 
         <button
           disabled={loading}
-          className="w-full rounded bg-red-600 px-4 py-3 font-semibold hover:bg-red-700 disabled:bg-red-900"
+          className="w-full rounded-xl bg-red-600 px-4 py-3.5 font-bold text-white shadow-lg shadow-red-950/40 transition duration-200 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-black disabled:cursor-not-allowed disabled:bg-red-900 disabled:text-red-200"
         >
           {loading ? "Registering..." : "Register"}
         </button>
       </form>
 
-      <p className="mt-4 text-sm text-gray-400">
+      <p className="mt-6 text-center text-sm text-zinc-400">
         Already have an account?{" "}
-        <Link to="/login" className="text-red-500 hover:underline">
+        <Link to="/login" className="font-semibold text-red-400 hover:text-red-300">
           Login
         </Link>
       </p>
-    </div>
+      </div>
+    </main>
   );
 }
 

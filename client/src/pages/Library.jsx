@@ -7,18 +7,12 @@ import {
 import toast from "react-hot-toast";
 import Spinner from "../components/Spinner";
 import LibraryMovieCard from "../components/LibraryMovieCard.jsx";
-import EmptyState from "../components/EmptyState";  
+import EmptyState from "../components/EmptyState";
 
 function Library() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("all");
-
-  <EmptyState
-  emoji="🎬"
-  title="No movies found"
-  description="Start building your collection by searching and adding movies."
-/>
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -101,11 +95,11 @@ function Library() {
   };
 
   const filteredMovies = movies.filter((movie) => {
-  if (activeFilter === "favorites") return movie.isFavorite;
-  if (activeFilter === "watched") return movie.isWatched;
+    if (activeFilter === "favorites") return movie.isFavorite;
+    if (activeFilter === "watched") return movie.isWatched;
 
-  return true;
-});
+    return true;
+  });
 
   const totalMovies = movies.length;
 
@@ -122,98 +116,87 @@ function Library() {
   ).length;
 
   if (loading) {
-    return (
-      <div className="p-8 text-center">
-        Loading library...
-      </div>
-    );
-  }
-
-  if (loading) {
     return <Spinner />;
   }
 
   const filters = [
-  { id: "all", label: "All Movies" },
-  { id: "favorites", label: "Favorites" },
-  { id: "watched", label: "Watched" },
-];
+    { id: "all", label: "All Movies" },
+    { id: "favorites", label: "Favorites" },
+    { id: "watched", label: "Watched" },
+  ];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold">
-        My Library
-      </h1>
+    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mb-8 flex flex-col gap-3 sm:mb-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-400">
+          Your collection
+        </p>
+        <h1 className="text-4xl font-black sm:text-5xl">
+          My Library
+        </h1>
+      </div>
 
       <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-        <div className="rounded-xl bg-zinc-900 p-4">
-          <p className="text-sm text-gray-400">
+        <div className="rounded-2xl border border-white/10 bg-zinc-950/80 p-5 shadow-xl shadow-black/20">
+          <p className="text-sm font-medium text-zinc-400">
             Total Movies
           </p>
-          <h2 className="text-3xl font-bold">
+          <h2 className="mt-2 text-3xl font-black">
             {totalMovies}
           </h2>
         </div>
 
-        <div className="rounded-xl bg-zinc-900 p-4">
-          <p className="text-sm text-gray-400">
+        <div className="rounded-2xl border border-white/10 bg-zinc-950/80 p-5 shadow-xl shadow-black/20">
+          <p className="text-sm font-medium text-zinc-400">
             Favorites
           </p>
-          <h2 className="text-3xl font-bold">
+          <h2 className="mt-2 text-3xl font-black">
             {favoriteMovies}
           </h2>
         </div>
 
-        <div className="rounded-xl bg-zinc-900 p-4">
-          <p className="text-sm text-gray-400">
+        <div className="rounded-2xl border border-white/10 bg-zinc-950/80 p-5 shadow-xl shadow-black/20">
+          <p className="text-sm font-medium text-zinc-400">
             Watched
           </p>
-          <h2 className="text-3xl font-bold">
+          <h2 className="mt-2 text-3xl font-black">
             {watchedMovies}
           </h2>
         </div>
 
-        <div className="rounded-xl bg-zinc-900 p-4">
-          <p className="text-sm text-gray-400">
+        <div className="rounded-2xl border border-white/10 bg-zinc-950/80 p-5 shadow-xl shadow-black/20">
+          <p className="text-sm font-medium text-zinc-400">
             Watchlist
           </p>
-          <h2 className="text-3xl font-bold">
+          <h2 className="mt-2 text-3xl font-black">
             {watchlistMovies}
           </h2>
         </div>
       </div>
 
-      <div className="mb-8 flex flex-wrap gap-3">
-  {filters.map((filter) => (
-    <button
-      key={filter.id}
-      onClick={() => setActiveFilter(filter.id)}
-      className={`rounded-full px-4 py-2 text-sm font-medium ${
-        activeFilter === filter.id
-          ? "bg-red-600 text-white"
-          : "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
-      }`}
-    >
-      {filter.label}
-    </button>
-  ))}
-</div>
+      <div className="mb-8 flex flex-wrap gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-2">
+        {filters.map((filter) => (
+          <button
+            key={filter.id}
+            onClick={() => setActiveFilter(filter.id)}
+            className={`rounded-xl px-4 py-2.5 text-sm font-bold transition duration-200 ${
+              activeFilter === filter.id
+                ? "bg-red-600 text-white shadow-lg shadow-red-950/40"
+                : "text-zinc-400 hover:bg-white/5 hover:text-white"
+            }`}
+          >
+            {filter.label}
+          </button>
+        ))}
+      </div>
 
       {filteredMovies.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl bg-zinc-900 p-12">
-          <div className="text-7xl">🎬</div>
-
-          <h2 className="mt-4 text-2xl font-bold">
-            No movies found
-          </h2>
-
-          <p className="mt-2 text-center text-gray-400">
-            Start building your collection by searching
-            and adding movies to your library.
-          </p>
-        </div>
+        <EmptyState
+          title="No movies found"
+          description="Start building your collection by searching and adding movies to your library."
+        />
       ) : (
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {filteredMovies.map((movie) => (
             <LibraryMovieCard
               key={movie._id}
@@ -226,7 +209,7 @@ function Library() {
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 }
 

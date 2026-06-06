@@ -11,7 +11,7 @@ import NotFound from "./pages/NotFound.jsx";
 
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#050505] text-white antialiased">
       <Navbar />
 
       <Routes>

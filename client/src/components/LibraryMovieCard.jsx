@@ -8,26 +8,28 @@ function LibraryMovieCard({
   onRatingChange,
 }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-zinc-900">
-      <Link to={`/movies/${movie.movieId}`}>
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 shadow-xl shadow-black/30 transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:shadow-2xl hover:shadow-red-950/20">
+      <Link to={`/movies/${movie.movieId}`} className="block overflow-hidden">
         <img
           src={movie.poster}
           alt={movie.title}
-          className="h-72 w-full object-cover"
+          className="aspect-[2/3] w-full object-cover transition duration-500 hover:scale-105"
         />
       </Link>
 
-      <div className="space-y-3 p-3">
+      <div className="space-y-4 p-4">
         <div>
-          <h2 className="truncate font-semibold">{movie.title}</h2>
-          <p className="text-sm text-gray-400">{movie.year}</p>
+          <h2 className="truncate font-bold text-white">{movie.title}</h2>
+          <p className="mt-1 text-sm font-medium text-zinc-500">{movie.year}</p>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm">
+        <div className="grid gap-2 text-sm">
           <button
             onClick={() => onToggleFavorite(movie)}
-            className={`rounded px-3 py-1 ${
-              movie.isFavorite ? "bg-red-600" : "bg-zinc-700"
+            className={`rounded-xl px-3 py-2 font-semibold transition duration-200 ${
+              movie.isFavorite
+                ? "bg-red-600 text-white shadow-lg shadow-red-950/30"
+                : "bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white"
             }`}
           >
             {movie.isFavorite ? "Favorite" : "Add Favorite"}
@@ -35,8 +37,10 @@ function LibraryMovieCard({
 
           <button
             onClick={() => onToggleWatched(movie)}
-            className={`rounded px-3 py-1 ${
-              movie.isWatched ? "bg-green-600" : "bg-zinc-700"
+            className={`rounded-xl px-3 py-2 font-semibold transition duration-200 ${
+              movie.isWatched
+                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950/30"
+                : "bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white"
             }`}
           >
             {movie.isWatched ? "Watched" : "Mark Watched"}
@@ -46,7 +50,7 @@ function LibraryMovieCard({
         <select
           value={movie.personalRating || ""}
           onChange={(e) => onRatingChange(movie, e.target.value)}
-          className="w-full rounded bg-zinc-800 px-3 py-2 text-white"
+          className="w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
         >
           <option value="">Rate movie</option>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((rating) => (
@@ -58,7 +62,7 @@ function LibraryMovieCard({
 
         <button
           onClick={() => onDelete(movie._id)}
-          className="w-full rounded bg-red-700 px-3 py-2 text-sm hover:bg-red-600"
+          className="w-full rounded-xl border border-red-500/30 bg-red-950/60 px-3 py-2.5 text-sm font-bold text-red-100 transition duration-200 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-black"
         >
           Remove
         </button>
